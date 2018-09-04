@@ -123,7 +123,7 @@ class PriorMap(object):
     
     # Arguments / Attributes
         source_layer_name
-        image_size
+        image_size: Tuple with spatial size of model input.
         map_size
         variances
         aspect_ratios: List of aspect ratios for the prior boxes at each 
@@ -134,7 +134,7 @@ class PriorMap(object):
         clip: Boolean, whether the boxes should be cropped to do not exceed 
             the borders of the input image.
         step
-        minmax_size
+        minmax_size: List of tuples with s_min and s_max values (see paper).
         special_ssd_box: Boolean, wether or not the extra box for aspect 
             ratio 1 is used.
     
@@ -145,16 +145,8 @@ class PriorMap(object):
                  minmax_size=None, variances=[0.1, 0.1, 0.2, 0.2], 
                  aspect_ratios=[1], shift=None,
                  clip=False, step=None, special_ssd_box=False):
-        self.source_layer_name = source_layer_name
-        self.image_size = image_size # is input size
-        self.map_size = map_size
-        self.variances = variances
-        self.aspect_ratios = aspect_ratios
-        self.shift = shift
-        self.clip = clip
-        self.step = step
-        self.minmax_size = minmax_size # s_min, s_max
-        self.special_ssd_box = special_ssd_box
+        
+        self.__dict__.update(locals())
         
         #self.compute_priors()
         
